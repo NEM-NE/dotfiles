@@ -17,6 +17,9 @@ export ZSH="/Users/imseongbin/.oh-my-zsh"
 # IntelliJ IDEA Command Line Setting
 export PATH=~/.jetbrains:$PATH
 
+# Set for Go
+export GOPATH=$HOME
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -130,7 +133,9 @@ alias kd="kubectl describe"
 alias g="git"
 alias gp="git push"
 alias gosos="cd /Users/imseongbin/Desktop/workspace/so1s"
-export PATH="$PATH:/Users/imseongbin/developer/flutter/bin"
+alias gotowork="cd ~/Desktop/workspace"
+export PATH="$PATH:$GOPATH/bin"
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
