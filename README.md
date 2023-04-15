@@ -10,6 +10,9 @@ chmod +x ./bootstrap.sh
 
 ./bootstrap.sh
 
+# apply iterm profile
+preferences -> profiles -> other Actions -> import json profiles
+
 ```
 
 ### Reference
