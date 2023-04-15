@@ -90,6 +90,7 @@ plugins=(
 git
 zsh-syntax-highlighting
 zsh-autosuggestions
+web-search
 kubectl
 kube-ps1
 aws
@@ -98,6 +99,13 @@ terraform
 docker
 yarn
 npm
+copypath
+copyfile
+copybuffer
+zsh-history-substring-search
+# control + T : search sub directories
+# control + R : search previous commands
+fzf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -134,6 +142,15 @@ alias g="git"
 alias gp="git push"
 alias gosos="cd /Users/imseongbin/Desktop/workspace/so1s"
 alias gotowork="cd ~/Desktop/workspace"
+alias cat="bat"
+
+# neovim
+alias svim="sudo nvim"
+alias vim="nvim"
+alias vi="nvim"
+alias vimdiff="nvim -d"
+export EDITOR=/opt/homebrew/bin/nvim
+
 export PATH="$PATH:$GOPATH/bin"
 
 
@@ -154,4 +171,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
