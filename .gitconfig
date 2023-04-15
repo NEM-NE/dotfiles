@@ -1,19 +1,25 @@
+[includeIf "gitdir:$HOME/Desktop/workspace/vssl/"]
+  path=~/.gitconfig-work
+[includeIf "gitdir:$HOME/Desktop/workspace/"]
+  path=~/.gitconfig-private
 [user]
 	name = NEM-NE
 	email = dlatqdlatq@mju.ac.kr
 [core]
-	excludesfile = /Users/imseongbin/.gitignore_global
+	excludesfile = $HOME/.gitignore_global
 	autocrlf = input
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /private/var/folders/07/d0wdfz9541g6hqxdd1w_42bc0000gn/T/AppTranslocation/C315992A-4C49-4F84-B19A-623145A13789/d/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [commit]
-	template = /Users/imseongbin/.stCommitMsg
+	template = $HOME/.stCommitMsg
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[alias]
+  history = log --graph --pretty=format:'%C(auto)%h%d %s %Cgreen(%an, %ar)%Creset' --date=short

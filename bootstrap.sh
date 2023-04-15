@@ -14,6 +14,8 @@ brew cleanup
 brew cask cleanup
 
 [ ! -f $HOME/.gitconfig ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig
+[ ! -f $HOME/.gitconfig-work ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig-work
+[ ! -f $HOME/.gitconfig-private ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig-private
 [ ! -f $HOME/.gitignore_global ] && ln -nfs $HOME/dotfiles/.gitignore_global $HOME/.gitignore_global
 
 chsh -s $(which zsh)
