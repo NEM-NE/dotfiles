@@ -21,6 +21,11 @@ brew cask cleanup
 # install space vim
 curl -sLf https://spacevim.org/install.sh | bash
 
+# set gitconfig
+[ ! -f $HOME/Desktop/vssl/.gitconfig-work ] && mkdir $HOME/Dekstop/vssl && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/Desktop/vssl/.gitconfig-work
+
+[ ! -f $HOME/Desktop/workspace/.gitconfig-work ] && mkdir $HOME/Dekstop/workspace && ln -nfs $HOME/dotfiles/.gitconfig-private $HOME/Desktop/vssl/.gitconfig-private
+
 chsh -s $(which zsh)
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 [ ! -f $HOME/.zshrc ] && ln -nfs $HOME/dotfiles/.zshrc $HOME/.zshrc
