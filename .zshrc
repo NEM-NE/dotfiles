@@ -1,14 +1,9 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+#fi
 
-# 테라폼 설정
-export SO1S_DEPLOY_REPO_PATH=/Users/imseongbin/Desktop/workspace/so1s/deploy
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/imseongbin/.oh-my-zsh"
@@ -81,14 +76,21 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# connect zsh plugins that installed by brew
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+
 # Which plugins would you like to load?
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+#zsh-syntax-highlighting
+#zsh-autosuggestions
+#zsh-history-substring-search
 git
-zsh-syntax-highlighting
-zsh-autosuggestions
 web-search
 kubectl
 kube-ps1
@@ -102,7 +104,6 @@ npm
 copypath
 copyfile
 copybuffer
-zsh-history-substring-search
 # control + T : search sub directories
 # control + R : search previous commands
 fzf
@@ -152,7 +153,6 @@ alias vimdiff="nvim -d"
 export EDITOR=/opt/homebrew/bin/nvim
 
 export PATH="$PATH:$GOPATH/bin"
-
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

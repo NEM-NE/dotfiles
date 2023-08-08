@@ -19,7 +19,7 @@ brew cask cleanup
 [ ! -f $HOME/.gitignore_global ] && ln -nfs $HOME/dotfiles/.gitignore_global $HOME/.gitignore_global
 
 # install space vim
-curl -sLf https://spacevim.org/install.sh | bash
+# curl -sLf https://spacevim.org/install.sh | bash
 
 # set gitconfig
 [ ! -f $HOME/Desktop/vssl/.gitconfig-work ] && mkdir $HOME/Dekstop/vssl && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/Desktop/vssl/.gitconfig-work
