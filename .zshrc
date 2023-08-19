@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 #if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -6,7 +13,7 @@
 
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/imseongbin/.oh-my-zsh"
+export ZSH="/Users/imsungbin/.oh-my-zsh"
 
 # IntelliJ IDEA Command Line Setting
 export PATH=~/.jetbrains:$PATH
@@ -77,9 +84,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # connect zsh plugins that installed by brew
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 
 # Which plugins would you like to load?
@@ -99,6 +103,9 @@ helm
 terraform
 docker
 yarn
+zsh-history-substring-search
+zsh-autosuggestions
+zsh-syntax-highlighting
 # Standard plugins can be found in $ZSH/plugins/
 npm
 copypath
@@ -141,7 +148,7 @@ alias kg="kubectl get"
 alias kd="kubectl describe"
 alias g="git"
 alias gp="git push"
-alias gosos="cd /Users/imseongbin/Desktop/workspace/so1s"
+alias gosos="cd /Users/imsungbin/Desktop/workspace/so1s"
 alias gotowork="cd ~/Desktop/workspace"
 alias cat="bat --style=plain"
 
