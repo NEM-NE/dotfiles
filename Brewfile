@@ -38,6 +38,7 @@ brew "zsh-autosuggestions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "weaveworks/tap/eksctl"
+brew "mas"
 cask "1password"
 cask "1password-cli"
 cask "alt-tab"
@@ -60,3 +61,5 @@ cask "stats"
 cask "visual-studio-code"
 cask "yt-music"
 cask "zoom"
+
+mas "KakaoTalk", id: 869223134
