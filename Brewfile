@@ -63,3 +63,4 @@ cask "yt-music"
 cask "zoom"
 
 mas "KakaoTalk", id: 869223134
+mas "ScreenBrush", id: 1233965871
