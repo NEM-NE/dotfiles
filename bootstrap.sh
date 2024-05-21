@@ -19,8 +19,9 @@ brew cask cleanup
 [ ! -f $HOME/.gitconfig ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig
 [ ! -f $HOME/.gitconfig-work ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig-work
 
-# install space vim
-curl -sLf https://spacevim.org/install.sh | bash
+# set vimrc
+mkdir ~/.vim_runtime
+ln -s $HOME/dotfiles/sungvimrc ~/.vim_runtime
 
 # set gitconfig
 [ ! -f $HOME/Desktop/vssl/.gitconfig-work ] && mkdir $HOME/Dekstop/vssl && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/Desktop/vssl/.gitconfig-work
@@ -63,3 +64,5 @@ dockutil --no-restart --add "/System/Applications/Calendar.app"
 dockutil --no-restart --add "/System/Applications/Mail.app"
 killall Dock
 
+# install vscode-extensions
+./vscode-extensions-install.sh

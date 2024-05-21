@@ -148,14 +148,14 @@ alias kg="kubectl get"
 alias kd="kubectl describe"
 alias g="git"
 alias gp="git push"
-alias gosos="cd /Users/imsungbin/Desktop/workspace/so1s"
+alias gotovssl="cd ~/Desktop/vssl"
 alias gotowork="cd ~/Desktop/workspace"
 alias cat="bat --style=plain"
 
 # neovim
-alias svim="sudo nvim"
-alias vim="nvim"
-alias vi="nvim"
+#alias svim="sudo nvim"
+#alias vim="nvim"
+#alias vi="nvim"
 alias vimdiff="nvim -d"
 export EDITOR=/opt/homebrew/bin/nvim
 
