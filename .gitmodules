@@ -1,0 +1,3 @@
+[submodule "sungvimrc"]
+	path = sungvimrc
+	url = git@github.com:NEM-NE/sungvimrc.git
