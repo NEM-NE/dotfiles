@@ -23,6 +23,9 @@ brew cask cleanup
 mkdir ~/.vim_runtime
 ln -s $HOME/dotfiles/sungvimrc ~/.vim_runtime
 
+# install vim-plugin
+sh $HOME/dotfiles/sungvimrc/install_awesome_vimrc.sh
+
 # set gitconfig
 [ ! -f $HOME/Desktop/vssl/.gitconfig-work ] && mkdir $HOME/Dekstop/vssl && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/Desktop/vssl/.gitconfig-work
 [ ! -f $HOME/Desktop/workspace/.gitconfig-work ] && mkdir $HOME/Dekstop/workspace && ln -nfs $HOME/dotfiles/.gitconfig-private $HOME/Desktop/vssl/.gitconfig-private
