@@ -163,3 +163,13 @@ export PATH="$PATH:$GOPATH/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Created by `pipx` on 2024-08-31 10:28:10
+export PATH="$PATH:/Users/imsungbin/.local/bin"
+
+# bun completions
+[ -s "/Users/imsungbin/.bun/_bun" ] && source "/Users/imsungbin/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
