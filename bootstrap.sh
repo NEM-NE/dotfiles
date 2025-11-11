@@ -14,37 +14,53 @@ brew update
 brew tap homebrew/bundle
 brew bundle --file=$HOME/dotfiles/Brewfile
 brew cleanup
-brew cask cleanup
 
 [ ! -f $HOME/.gitconfig ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig
-[ ! -f $HOME/.gitconfig-work ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig-work
+[ ! -f $HOME/.gitconfig-work ] && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/.gitconfig-work
 
 # set vimrc
-mkdir ~/.vim_runtime
-ln -s $HOME/dotfiles/sungvimrc ~/.vim_runtime
+[ ! -d ~/.vim_runtime ] && mkdir ~/.vim_runtime
+[ ! -L ~/.vim_runtime/sungvimrc ] && ln -s $HOME/dotfiles/sungvimrc ~/.vim_runtime
 
 # install vim-plugin
 sh $HOME/dotfiles/sungvimrc/install_awesome_vimrc.sh
 
-# set gitconfig
-[ ! -f $HOME/Desktop/vssl/.gitconfig-work ] && mkdir $HOME/Dekstop/vssl && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/Desktop/vssl/.gitconfig-work
-[ ! -f $HOME/Desktop/workspace/.gitconfig-work ] && mkdir $HOME/Dekstop/workspace && ln -nfs $HOME/dotfiles/.gitconfig-private $HOME/Desktop/vssl/.gitconfig-private
+# set gitconfig for work directories
+[ ! -d $HOME/Desktop/toss ] && mkdir -p $HOME/Desktop/toss
+[ ! -f $HOME/Desktop/toss/.gitconfig-work ] && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/Desktop/toss/.gitconfig-work
+
+[ ! -d $HOME/Desktop/workspace ] && mkdir -p $HOME/Desktop/workspace
+[ ! -f $HOME/Desktop/workspace/.gitconfig-private ] && ln -nfs $HOME/dotfiles/.gitconfig-private $HOME/Desktop/workspace/.gitconfig-private
 
 # zsh
 chsh -s $(which zsh)
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-if [ -f "$HOME"/.zshrc ]; then
-  cp "$HOME"/.zshrc "$HOME"/.zshrc.backup
+
+# install oh-my-zsh if not already installed
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" "" --unattended
+fi
+
+# backup existing .zshrc if it exists and is not a symlink
+if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
+  cp "$HOME/.zshrc" "$HOME/.zshrc.backup"
 fi
 ln -nfs $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 # install zsh-plugins
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && \
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && \
+  git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-history-substring-search" ] && \
+  git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
 
 # install powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+[ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ] && \
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 
 source $HOME/.zshrc
