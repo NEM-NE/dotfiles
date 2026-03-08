@@ -8,7 +8,7 @@ if [[ $? != 0 ]] ; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 else
     brew update
-fi
+fi/
 
 brew update
 brew tap homebrew/bundle
@@ -24,6 +24,11 @@ brew cleanup
 
 # install vim-plugin
 sh $HOME/dotfiles/sungvimrc/install_awesome_vimrc.sh
+
+# set nvim config
+mkdir -p ~/.config
+[ -L ~/.config/nvim ] || rm -rf ~/.config/nvim
+ln -nfs $HOME/dotfiles/sungvimrc/nvim ~/.config/nvim
 
 # set gitconfig for work directories
 [ ! -d $HOME/Desktop/toss ] && mkdir -p $HOME/Desktop/toss

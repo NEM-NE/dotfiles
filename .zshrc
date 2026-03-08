@@ -13,7 +13,7 @@ fi
 
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/imsungbin/.oh-my-zsh"
+export ZSH="/Users/sungbin/.oh-my-zsh"
 
 # IntelliJ IDEA Command Line Setting
 export PATH=~/.jetbrains:$PATH
@@ -101,7 +101,7 @@ kube-ps1
 aws
 helm
 terraform
-docker
+#docker
 yarn
 zsh-history-substring-search
 zsh-autosuggestions
@@ -114,6 +114,7 @@ copybuffer
 # control + T : search sub directories
 # control + R : search previous commands
 fzf
+podman
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -148,13 +149,17 @@ alias kg="kubectl get"
 alias kd="kubectl describe"
 alias g="git"
 alias gp="git push"
-alias gotovssl="cd ~/Desktop/vssl"
+alias desktop="cd ~/Desktop"
 alias gotowork="cd ~/Desktop/workspace"
+alias goland="pycharm"
+alias gs="git status"
+alias p="podman"
+alias docker="podman"
 alias cat="bat --style=plain"
 
 # neovim
 #alias svim="sudo nvim"
-#alias vim="nvim"
+alias vim="nvim"
 #alias vi="nvim"
 alias vimdiff="nvim -d"
 export EDITOR=/opt/homebrew/bin/nvim
@@ -165,11 +170,22 @@ export PATH="$PATH:$GOPATH/bin"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Created by `pipx` on 2024-08-31 10:28:10
-export PATH="$PATH:/Users/imsungbin/.local/bin"
+export PATH="$PATH:/Users/sungbin/.local/bin"
 
 # bun completions
-[ -s "/Users/imsungbin/.bun/_bun" ] && source "/Users/imsungbin/.bun/_bun"
+[ -s "/Users/sungbin/.bun/_bun" ] && source "/Users/sungbin/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+
+# pyenv configuration
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

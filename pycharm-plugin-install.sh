@@ -3,7 +3,7 @@ set -euo pipefail
 
 # PyCharm 실행 파일 경로 (환경에 맞게 수정 가능)
 # ~ 를 직접 쓰면 안 풀리니까 $HOME 사용
-PYCHARM_BIN="${PYCHARM_BIN:-/Applications/PyCharm.app/Contents/MacOS/pycharm}"
+PYCHARM_BIN="${PYCHARM_BIN:-$HOME/Applications/PyCharm.app/Contents/MacOS/pycharm}"
 
 # 플러그인 목록 파일 (기본: 스크립트와 같은 디렉토리의 pycharm-plugins.txt)
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"

@@ -1,25 +1,27 @@
 [user]
-	name = NEM-NE
+	name = sungbin
 	email = dlatqdlatq@mju.ac.kr
 
-[includeIf "gitdir:~/Desktop/vssl/"]
-  path = ~/Desktop/vssl/.gitconfig-work
-
 [includeIf "gitdir:~/Desktop/workspace/"]
-  path = ~/Desktop/workspace/.gitconfig-private
+	path = ~/.gitconfig-private
 
 [core]
 	excludesfile = $HOME/.gitignore_global
-	autocrlf = input
+	editor = nvim
 
-[commit]
-	template = $HOME/.stCommitMsg
+[color]
+	diff = auto
+	status = auto
+	branch = auto
 
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+[push]
+	default = current
+
+[pull]
+	rebase = true
 
 [alias]
   history = log --graph --pretty=format:'%C(auto)%h%d %s %Cgreen(%an, %ar)%Creset' --date=short
+
+[init]
+	templatedir = ~/dotfiles/.git_template
