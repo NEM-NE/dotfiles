@@ -1,0 +1,25 @@
+# === Secrets ===
+auth.json
+.secrets
+config.toml
+
+# === Runtime / Session data ===
+history.jsonl
+sessions/
+shell_snapshots/
+log/
+tmp/
+
+# === State / Cache ===
+state_5.sqlite
+state_5.sqlite-shm
+state_5.sqlite-wal
+sqlite/
+models_cache.json
+.codex-global-state.json
+version.json
+.personality_migration
+
+# === Auto-installed ===
+vendor_imports/
+skills/.system/

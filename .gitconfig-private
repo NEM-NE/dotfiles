@@ -1,0 +1,5 @@
+# Git config override for ~/Desktop/workspace/ projects
+# Edit this file to set a different name/email for personal workspace
+[user]
+	name = sungbin
+	email = dlatqdlatq@mju.ac.kr

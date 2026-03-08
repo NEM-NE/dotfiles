@@ -1,0 +1,33 @@
+model = "gpt-5.3-codex"
+model_reasoning_effort = "high"
+personality = "pragmatic"
+
+# NOTE: projects and mcp_servers use absolute paths.
+# Adjust paths below if your $HOME or directory layout differs.
+
+[projects."${HOME}/Desktop/workspace/notion-flashcards"]
+trust_level = "trusted"
+
+[projects."${HOME}/Desktop/workspace/claudesidian"]
+trust_level = "trusted"
+
+[projects."${HOME}/Desktop/workspace/second-brain"]
+trust_level = "trusted"
+
+[projects."${HOME}/Desktop/workspace"]
+trust_level = "trusted"
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.context7.env]
+CONTEXT7_API_KEY = "${CONTEXT7_API_KEY}"
+
+# Requires: git clone real-estate-mcp into ~/Desktop/workspace/ and set up .venv
+[mcp_servers.real-estate]
+command = "${HOME}/Desktop/workspace/real-estate-mcp/.venv/bin/python"
+args = ["-m", "real_estate.mcp_server.server"]
+
+[mcp_servers.real-estate.env]
+DATA_GO_KR_API_KEY = "${DATA_GO_KR_API_KEY}"

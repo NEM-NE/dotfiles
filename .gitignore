@@ -15,6 +15,9 @@ Brewfile.lock.json
 
 .idea/
 
+# Project-local Claude Code data (machine-specific, not portable)
+.claude/
+
 # Thumbnails
 ._*
 

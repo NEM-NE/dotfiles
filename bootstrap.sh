@@ -1,92 +1,75 @@
-#!/bin/sh
+#!/bin/bash
+# bootstrap.sh - First-time setup for a new machine.
+# Installs dependencies, then calls sync.sh for idempotent config.
 
+set -euo pipefail
+DOTFILES="$HOME/dotfiles"
 
-# original code :https://blog.appkr.dev/work-n-play/dotfiles/
+# --- Homebrew ---
 
-which -s brew
-if [[ $? != 0 ]] ; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+if ! command -v brew &>/dev/null; then
+  echo "==> Installing Homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-    brew update
-fi/
+  echo "==> Updating Homebrew"
+  brew update
+fi
 
-brew update
-brew tap homebrew/bundle
-brew bundle --file=$HOME/dotfiles/Brewfile
+brew bundle --file="$DOTFILES/Brewfile"
 brew cleanup
 
-[ ! -f $HOME/.gitconfig ] && ln -nfs $HOME/dotfiles/.gitconfig $HOME/.gitconfig
-[ ! -f $HOME/.gitconfig-work ] && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/.gitconfig-work
+# --- Zsh ---
 
-# set vimrc
-[ ! -d ~/.vim_runtime ] && mkdir ~/.vim_runtime
-[ ! -L ~/.vim_runtime/sungvimrc ] && ln -s $HOME/dotfiles/sungvimrc ~/.vim_runtime
+if [ "$SHELL" != "$(which zsh)" ]; then
+  echo "==> Changing default shell to zsh"
+  chsh -s "$(which zsh)"
+fi
 
-# install vim-plugin
-sh $HOME/dotfiles/sungvimrc/install_awesome_vimrc.sh
+# --- Oh My Zsh ---
 
-# set nvim config
-mkdir -p ~/.config
-[ -L ~/.config/nvim ] || rm -rf ~/.config/nvim
-ln -nfs $HOME/dotfiles/sungvimrc/nvim ~/.config/nvim
-
-# set gitconfig for work directories
-[ ! -d $HOME/Desktop/toss ] && mkdir -p $HOME/Desktop/toss
-[ ! -f $HOME/Desktop/toss/.gitconfig-work ] && ln -nfs $HOME/dotfiles/.gitconfig-work $HOME/Desktop/toss/.gitconfig-work
-
-[ ! -d $HOME/Desktop/workspace ] && mkdir -p $HOME/Desktop/workspace
-[ ! -f $HOME/Desktop/workspace/.gitconfig-private ] && ln -nfs $HOME/dotfiles/.gitconfig-private $HOME/Desktop/workspace/.gitconfig-private
-
-# zsh
-chsh -s $(which zsh)
-
-# install oh-my-zsh if not already installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" "" --unattended
+  echo "==> Installing Oh My Zsh"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-# backup existing .zshrc if it exists and is not a symlink
-if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
-  cp "$HOME/.zshrc" "$HOME/.zshrc.backup"
+# --- Sync dotfiles ---
+
+echo "==> Running sync.sh"
+bash "$DOTFILES/sync.sh"
+
+# --- Dock ---
+
+if command -v dockutil &>/dev/null; then
+  echo "==> Configuring Dock"
+  dockutil --no-restart --remove all
+  dockutil --no-restart --add "/Applications/YT Music.app"
+  dockutil --no-restart --add "/Applications/Google Chrome.app"
+  dockutil --no-restart --add "/Applications/iTerm.app"
+  dockutil --no-restart --add "/Applications/Cron.app"
+  dockutil --no-restart --add "/System/Applications/Notes.app"
+  dockutil --no-restart --add "/System/Applications/System Settings.app/"
+  dockutil --no-restart --add "/System/Applications/Calendar.app"
+  dockutil --no-restart --add "/System/Applications/Mail.app"
+  killall Dock
+else
+  echo "==> dockutil not found, skipping Dock setup"
 fi
-ln -nfs $HOME/dotfiles/.zshrc $HOME/.zshrc
 
-# install zsh-plugins
-ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+# --- PyCharm plugins ---
 
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && \
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+if [ -x "$DOTFILES/pycharm-plugin-install.sh" ]; then
+  echo "==> Installing PyCharm plugins"
+  bash "$DOTFILES/pycharm-plugin-install.sh"
+fi
 
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && \
-  git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+# --- Secrets reminder ---
 
-[ ! -d "$ZSH_CUSTOM/plugins/zsh-history-substring-search" ] && \
-  git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
+if [ ! -f "$DOTFILES/.codex-home/.secrets" ]; then
+  echo ""
+  echo "NOTE: Create $DOTFILES/.codex-home/.secrets with your API keys:"
+  echo '  CONTEXT7_API_KEY="your-key"'
+  echo '  DATA_GO_KR_API_KEY="your-key"'
+  echo "Then run: ./sync.sh"
+fi
 
-# install powerlevel10k
-[ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ] && \
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-
-
-source $HOME/.zshrc
-
-
-echo "*** Install dockutils from source (https://github.com/kcrawford/dockutil/issues/127) ***"
-DOCKUTIL_URL=$(curl --silent "https://api.github.com/repos/kcrawford/dockutil/releases/latest" | jq -r .assets[].browser_download_url | grep pkg)
-curl -sL "${DOCKUTIL_URL}" -o /tmp/dockutil.pkg
-sudo installer -pkg "/tmp/dockutil.pkg" -target /
-rm /tmp/dockutil.pkg
-
-dockutil --no-restart --remove all
-dockutil --no-restart --add "/Applications/YT Music.app"
-dockutil --no-restart --add "/Applications/Google Chrome.app"
-dockutil --no-restart --add "/Applications/iTerm.app"
-dockutil --no-restart --add "/Applications/Cron.app"
-dockutil --no-restart --add "/System/Applications/Notes.app"
-dockutil --no-restart --add "/System/Applications/System Settings.app/"
-dockutil --no-restart --add "/System/Applications/Calendar.app"
-dockutil --no-restart --add "/System/Applications/Mail.app"
-killall Dock
-
-# install vscode-extensions
-./vscode-extensions-install.sh
+echo "==> Bootstrap complete! Restart your terminal."

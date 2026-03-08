@@ -13,7 +13,7 @@ fi
 
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/sungbin/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # IntelliJ IDEA Command Line Setting
 export PATH=~/.jetbrains:$PATH
@@ -170,10 +170,10 @@ export PATH="$PATH:$GOPATH/bin"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Created by `pipx` on 2024-08-31 10:28:10
-export PATH="$PATH:/Users/sungbin/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # bun completions
-[ -s "/Users/sungbin/.bun/_bun" ] && source "/Users/sungbin/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"

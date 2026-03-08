@@ -1,0 +1,29 @@
+# === Runtime / Session data ===
+history.jsonl
+projects/
+session-env/
+shell-snapshots/
+todos/
+plans/
+ide/
+
+# === Cache ===
+cache/
+paste-cache/
+stats-cache.json
+mcp-needs-auth-cache.json
+
+# === Debug / Telemetry ===
+debug/
+statsig/
+telemetry/
+
+# === Backups ===
+backups/
+file-history/
+
+# === Plugins (auto-installed / machine-specific) ===
+plugins/blocklist.json
+plugins/known_marketplaces.json
+plugins/marketplaces/
+plugins/repos/
