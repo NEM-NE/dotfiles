@@ -115,6 +115,8 @@ python -m venv .venv && .venv/bin/pip install -e .
 `sync.sh` generates a Dynamic Profile from `iterm_theme.json`, places it in
 `~/Library/Application Support/iTerm2/DynamicProfiles/dotfiles.json`, and sets
 its GUID as the iTerm2 default profile. Restart iTerm2 after syncing to load it.
+If icons show as boxes, confirm `Profiles > Dotfiles > Text` is using
+`MesloLGS-NF-Regular 13`.
 
 ### Reference
 

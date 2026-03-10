@@ -120,6 +120,7 @@ fi
 if [ -f "$DOTFILES/iterm_theme.json" ]; then
   ITERM_PROFILE_GUID="59B040BC-39FC-4B91-AC47-5A6E78458F26"
   ITERM_PROFILE_NAME="Dotfiles"
+  ITERM_PROFILE_FONT="MesloLGS-NF-Regular 13"
   ITERM_DYNAMIC_PROFILES_DIR="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
   ITERM_DYNAMIC_PROFILE_PATH="$ITERM_DYNAMIC_PROFILES_DIR/dotfiles.json"
 
@@ -142,6 +143,14 @@ if [ -f "$DOTFILES/iterm_theme.json" ]; then
       "$DOTFILES/iterm_theme.json" > "$ITERM_DYNAMIC_PROFILE_PATH"
     defaults write com.googlecode.iterm2 "Default Bookmark Guid" -string "$ITERM_PROFILE_GUID"
     echo "    Installed iTerm2 dynamic profile ($ITERM_PROFILE_NAME)"
+    if CURRENT_ITERM_GUID=$(defaults read com.googlecode.iterm2 "Default Bookmark Guid" 2>/dev/null); then
+      if [ "$CURRENT_ITERM_GUID" != "$ITERM_PROFILE_GUID" ]; then
+        echo "    WARNING: iTerm2 default profile is still $CURRENT_ITERM_GUID (expected $ITERM_PROFILE_GUID)"
+      fi
+    fi
+    echo "    iTerm2 expected text font: $ITERM_PROFILE_FONT"
+    echo "    If icons show as boxes, open iTerm2 > Settings > Profiles > $ITERM_PROFILE_NAME > Text"
+    echo "    and select $ITERM_PROFILE_FONT, then fully restart iTerm2."
   else
     echo "    WARNING: jq not found. Skipping iTerm2 profile install"
   fi
