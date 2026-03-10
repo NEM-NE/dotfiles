@@ -72,4 +72,4 @@ if [ ! -f "$DOTFILES/.codex-home/.secrets" ]; then
   echo "Then run: ./sync.sh"
 fi
 
-echo "==> Bootstrap complete! Restart your terminal."
+echo "==> Bootstrap complete! Restart your terminal and iTerm2."

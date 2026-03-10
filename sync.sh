@@ -34,6 +34,13 @@ if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
 fi
 ln -nfs "$DOTFILES/.zshrc" "$HOME/.zshrc"
 
+# p10k prompt config
+if [ -f "$HOME/.p10k.zsh" ] && [ ! -L "$HOME/.p10k.zsh" ]; then
+  echo "    Backing up existing .p10k.zsh to .p10k.zsh.backup"
+  cp "$HOME/.p10k.zsh" "$HOME/.p10k.zsh.backup"
+fi
+ln -nfs "$DOTFILES/.p10k.zsh" "$HOME/.p10k.zsh"
+
 # claude code config
 if [ -d "$HOME/.claude" ] && [ ! -L "$HOME/.claude" ]; then
   echo "    Migrating existing ~/.claude to $DOTFILES/.claude-home"
@@ -107,6 +114,37 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
 
   [ -d "$ZSH_CUSTOM/themes/powerlevel10k" ] || \
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+fi
+
+# iTerm2 profile
+if [ -f "$DOTFILES/iterm_theme.json" ]; then
+  ITERM_PROFILE_GUID="59B040BC-39FC-4B91-AC47-5A6E78458F26"
+  ITERM_PROFILE_NAME="Dotfiles"
+  ITERM_DYNAMIC_PROFILES_DIR="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
+  ITERM_DYNAMIC_PROFILE_PATH="$ITERM_DYNAMIC_PROFILES_DIR/dotfiles.json"
+
+  mkdir -p "$ITERM_DYNAMIC_PROFILES_DIR"
+  if command -v jq &>/dev/null; then
+    jq \
+      --arg guid "$ITERM_PROFILE_GUID" \
+      --arg name "$ITERM_PROFILE_NAME" \
+      --arg home "$HOME" \
+      '{
+        Profiles: [
+          . |
+          .Guid = $guid |
+          .Name = $name |
+          .Description = $name |
+          ."Working Directory" = $home |
+          ."Custom Directory" = "No"
+        ]
+      }' \
+      "$DOTFILES/iterm_theme.json" > "$ITERM_DYNAMIC_PROFILE_PATH"
+    defaults write com.googlecode.iterm2 "Default Bookmark Guid" -string "$ITERM_PROFILE_GUID"
+    echo "    Installed iTerm2 dynamic profile ($ITERM_PROFILE_NAME)"
+  else
+    echo "    WARNING: jq not found. Skipping iTerm2 profile install"
+  fi
 fi
 
 echo "==> Sync complete!"

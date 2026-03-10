@@ -11,6 +11,7 @@ dotfiles/
 ├── .gitconfig               # Git config (name, alias, template)
 ├── .gitconfig-private       # Git config override for ~/Desktop/workspace/
 ├── .zshrc                   # Zsh config (plugins, aliases, pyenv, sdkman)
+├── .p10k.zsh                # Powerlevel10k prompt config
 ├── .gitignore_global        # Global gitignore
 ├── Brewfile                 # Homebrew packages & casks
 ├── my_configs.vim           # IdeaVIM config (multiple cursors)
@@ -25,7 +26,7 @@ dotfiles/
 │   └── my_configs.vim       # Classic vim config
 ├── pycharm-plugin-install.sh
 ├── pycharm-plugins.txt
-└── iterm_theme.json
+└── iterm_theme.json         # iTerm2 theme source for generated dynamic profile
 ```
 
 ### Quick Start
@@ -54,7 +55,7 @@ EOF
 `bootstrap.sh` installs:
 - Homebrew + Brewfile packages (includes `gettext` for envsubst, `dockutil`)
 - Oh My Zsh + plugins (syntax-highlighting, autosuggestions, history-substring-search)
-- Powerlevel10k theme
+- Powerlevel10k theme + Meslo Nerd Font
 - Dock layout (if dockutil is available)
 
 Then calls `sync.sh` for config sync.
@@ -76,12 +77,14 @@ Idempotent - safe to run repeatedly.
 | `~/.gitconfig` | `.gitconfig` |
 | `~/.gitconfig-private` | `.gitconfig-private` |
 | `~/.zshrc` | `.zshrc` |
+| `~/.p10k.zsh` | `.p10k.zsh` |
 | `~/.claude` | `.claude-home/` |
 | `~/.codex` | `.codex-home/` |
 | `~/.vim_runtime/sungvimrc` | `sungvimrc/` |
 | `~/.vim_runtime/my_configs.vim` | `sungvimrc/my_configs.vim` |
 | `~/.config/nvim` | `sungvimrc/nvim/` |
 | `~/Desktop/workspace/.gitconfig-private` | `.gitconfig-private` |
+| `~/Library/Application Support/iTerm2/DynamicProfiles/dotfiles.json` | generated from `iterm_theme.json` |
 
 Codex `config.toml` is generated from `config.toml.template` + `.secrets` via `envsubst`.
 Template uses `${HOME}` for paths, so it adapts to different usernames.
@@ -109,9 +112,9 @@ python -m venv .venv && .venv/bin/pip install -e .
 
 ### iTerm2 profile
 
-```
-iTerm2 -> Preferences -> Profiles -> Other Actions -> Import JSON Profiles -> iterm_theme.json
-```
+`sync.sh` generates a Dynamic Profile from `iterm_theme.json`, places it in
+`~/Library/Application Support/iTerm2/DynamicProfiles/dotfiles.json`, and sets
+its GUID as the iTerm2 default profile. Restart iTerm2 after syncing to load it.
 
 ### Reference
 
