@@ -55,7 +55,7 @@ EOF
 `bootstrap.sh` installs:
 - Homebrew + Brewfile packages (includes `gettext` for envsubst, `dockutil`)
 - Oh My Zsh + plugins (syntax-highlighting, autosuggestions, history-substring-search)
-- Powerlevel10k theme + Meslo Nerd Font
+- Powerlevel10k theme + Meslo font for Powerlevel10k
 - Dock layout (if dockutil is available)
 
 Then calls `sync.sh` for config sync.
